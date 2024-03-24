@@ -17,6 +17,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(
                         request -> request.requestMatchers("/home").permitAll()
                         .requestMatchers("/dashboard").authenticated()
+                        .requestMatchers("/home").permitAll()
                 )
                 .formLogin(loginConfigurer -> loginConfigurer.loginPage("/login").defaultSuccessUrl("/dashboard").failureUrl("/login?error=true").permitAll())
                 .logout(logoutConfigurer -> logoutConfigurer.logoutSuccessUrl("/login?logout=true").invalidateHttpSession(true).permitAll())
