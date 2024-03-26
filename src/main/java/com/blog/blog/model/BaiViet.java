@@ -26,7 +26,9 @@ public class BaiViet {
 
     private LocalDateTime ngayDang;
 
-    private String nguoiDang;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "nguoi_dang")
+    private TaiKhoan nguoiDang;
 
     @OneToMany(mappedBy = "idBaiViet", fetch = FetchType.EAGER)
     List<DanhGia> danhGia;

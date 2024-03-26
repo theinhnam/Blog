@@ -11,11 +11,12 @@ public class DanhGia {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String tieuDe;
+    private String noiDung;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_bai_viet")
     private BaiViet idBaiViet;
 
-    private String email;
+    @Column(name = "ten_nguoi_viet")
+    private String tenNguoiViet;
 }
