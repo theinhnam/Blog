@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách bài viết</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/admin/bai-viet/index">Danh sách</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="/admin/bai-viet/create">Quản lý</a>
+                </li>
+            </ul>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Danh sách bài viết</h5>
+            <table class="table">
+                <thead>
+                <tr class="table-primary">
+                    <th scope="col">Id</th>
+                    <th scope="col">Tiêu đề</th>
+                    <th scope="col">Chủ đề</th>
+                    <th scope="col">Ngày đăng</th>
+                    <th scope="col">Người đăng</th>
+                    <th scope="col">Trạng thái</th>
+                    <th scope="col">Thumbnail</th>
+                    <th scope="col">Thao tác</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="data : ${pageData.content}" >
+                    <td th:text="${data.id}"></td>
+                    <td th:text="${data.tieuDe}"></td>
+                    <td th:text="${data.idChuDe.ten}"></td>
+                    <td th:text="${data.ngayDang}"></td>
+                    <td th:text="${data.nguoiDang.hoTen}"></td>
+                    <td th:if="${data.trangThai == 1}">ACTIVE</td>
+                    <td th:if="${data.trangThai == 0}">DISABLED</td>
+                    <td>
+<!--                        <img src="/images/FPT_Polytechnic.png">-->
+<!--                        <img th:src="@{|/admin/bai-viet/read-file/${data.id}|}">-->
+<!--                        <img th:src="'http://localhost:8080/api/read-file/' + ${data.id}">-->
+<!--                        <img th:src="'http://localhost:8080/admin/bai-viet/read-file/' + ${data.id}">-->
+                    </td>
+                    <td>
+                        <a type="submit" class="btn btn-warning" th:href="@{|/admin/bai-viet/edit/${data.id}|}">
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+                        <a type="submit" class="btn btn-danger" th:href="@{|/admin/bai-viet/delete/${data.id}|}" onclick="return window.confirm('Bạn có muốn xóa không')">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                        <a type="submit" class="btn btn-info" th:href="@{|/admin/bai-viet/index-noi-dung/${data.id}|}">
+                            <i class="bi bi-info-square"></i>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item" >
+                        <a class="page-link" th:href="@{|/admin/bai-viet/index?pageNumber=0|}" th:if="${pageData.number > 0}">
+                            <i class="bi bi-chevron-double-left"></i>
+                        </a>
+                    </li>
+                    <li class="page-item" th:if="${pageData.number > 0}">
+                        <a class="page-link" th:href="@{|/admin/bai-viet/index?pageNumber=${pageData.number - 1}|}">
+                            <i class="bi bi-chevron-left"></i>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <p class="page-link fw-bolder" th:text="${pageData.number + 1}"></p>
+                    </li>
+                    <li class="page-item" th:if="${pageData.number < pageData.totalPages - 1}">
+                        <a class="page-link" th:href="@{|/admin/bai-viet/index?pageNumber=${pageData.number + 1}|}">
+                            <i class="bi bi-chevron-right"></i>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{|/admin/bai-viet/index?pageNumber=${pageData.totalPages - 1}|}" th:if="${pageData.number < pageData.totalPages - 1}">
+                            <i class="bi bi-chevron-double-right"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
