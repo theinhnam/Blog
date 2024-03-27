@@ -15,5 +15,7 @@ public class ChuDe {
 
     private String ten;
 
+    private String moTa;
+
     private int trangThai;
 }
