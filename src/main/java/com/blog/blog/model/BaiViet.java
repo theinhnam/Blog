@@ -30,6 +30,10 @@ public class BaiViet {
     @JoinColumn(name = "nguoi_dang")
     private TaiKhoan nguoiDang;
 
+    private String gioiThieu;
+
+    private String thumbnail;
+
     @OneToMany(mappedBy = "idBaiViet", fetch = FetchType.EAGER)
     List<DanhGia> danhGia;
 }
