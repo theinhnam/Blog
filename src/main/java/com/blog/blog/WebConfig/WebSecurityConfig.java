@@ -24,6 +24,8 @@ public class WebSecurityConfig {
                         .requestMatchers("/post/**").permitAll()
                         .requestMatchers("/saveMsg").permitAll()
                         .requestMatchers("/comment").permitAll()
+                                .requestMatchers("/admin/**").permitAll()
+                                .requestMatchers("/api/**").permitAll()
                 )
                 .formLogin(loginConfigurer -> loginConfigurer.loginPage("/login").defaultSuccessUrl("/dashboard").failureUrl("/login?error=true").permitAll())
                 .logout(logoutConfigurer -> logoutConfigurer.logoutSuccessUrl("/login?logout=true").invalidateHttpSession(true).permitAll())

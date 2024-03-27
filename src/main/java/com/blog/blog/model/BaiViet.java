@@ -2,6 +2,9 @@ package com.blog.blog.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -9,6 +12,7 @@ import java.util.List;
 @Entity
 @Table(name = "bai_viet")
 @Data
+@EntityListeners(AuditingEntityListener.class)
 public class BaiViet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,9 +28,10 @@ public class BaiViet {
 
     private int trangThai;
 
+    @CreatedDate
     private LocalDateTime ngayDang;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "nguoi_dang")
     private TaiKhoan nguoiDang;
 
