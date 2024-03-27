@@ -18,7 +18,7 @@ public class BaiViet {
 
     private String noiDung;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "id_chu_de")
     private ChuDe idChuDe;
 

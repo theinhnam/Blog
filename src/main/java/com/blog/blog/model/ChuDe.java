@@ -16,7 +16,4 @@ public class ChuDe {
     private String ten;
 
     private int trangThai;
-
-    @OneToMany(mappedBy = "idChuDe", fetch = FetchType.EAGER)
-    Set<BaiViet> posts;
 }

@@ -11,6 +11,8 @@ public class LienHe {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    private String ten;
+
     private String tieuDe;
 
     private String noiDung;
