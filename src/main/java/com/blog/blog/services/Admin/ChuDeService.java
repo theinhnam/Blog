@@ -62,4 +62,8 @@ public class ChuDeService {
             return false;
         }
     }
+
+    public ChuDe findById(int id){
+        return chuDeRepository.findById(id).get();
+    }
 }

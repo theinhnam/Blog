@@ -32,7 +32,7 @@ public class LoginController {
         }
 
         model.addAttribute("errorMsg", errorMsg);
-        return "/login/index.html";
+        return "dashboard";
     }
 
     @GetMapping("/logout")
@@ -41,6 +41,6 @@ public class LoginController {
         if (auth != null){
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
-        return "login.html";
+        return "dashboard.html";
     }
 }

@@ -1,7 +1,9 @@
 package com.blog.blog.Controller;
 
 import com.blog.blog.model.BaiViet;
+import com.blog.blog.model.ChuDe;
 import com.blog.blog.model.DanhGia;
+import com.blog.blog.services.Admin.ChuDeService;
 import com.blog.blog.services.DanhGiaService;
 import com.blog.blog.services.PostService;
 import jakarta.servlet.http.HttpSession;
@@ -24,10 +26,13 @@ public class PostController {
     @Autowired
     DanhGiaService danhGiaService;
 
+    @Autowired
+    ChuDeService chuDeService;
+
     @GetMapping("/post")
     public String displayPost(Model model){
         model.addAttribute("posts", postService.getAllPost());
-        return "/post/index";
+        return "post";
     }
 
     @GetMapping("/post/{id}")
@@ -42,6 +47,14 @@ public class PostController {
         session.setAttribute("currentPost", postDetail.get());
         model.addAttribute("post", postDetail.get());
         model.addAttribute("danhGia", new DanhGia());
-        return "/post/blog_detail/index";
+        return "postdetail";
+    }
+
+    @GetMapping("/category/{idCategory}")
+    public String displayPostWithCategory(@PathVariable("idCategory") int idCategory, Model model){
+        ChuDe chuDe = chuDeService.findById(idCategory);
+        model.addAttribute("listPost", postService.getPostByCategory(idCategory));
+        model.addAttribute("chuDe", chuDe);
+        return "postCategory";
     }
 }

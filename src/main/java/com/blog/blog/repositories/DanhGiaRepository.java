@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface DanhGiaRepository extends JpaRepository<DanhGia, Integer> {
 
-    @Query("SELECT dg from DanhGia dg where dg.idBaiViet.id = :idBaiViet")
+    @Query("SELECT dg from DanhGia dg where dg.idBaiViet.id = :idBaiViet order by dg.thoiGian desc ")
     public List<DanhGia> findByIdBaiViet(@Param("idBaiViet") int idBaiViet);
 }

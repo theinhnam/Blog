@@ -21,4 +21,8 @@ public class PostService {
     public Optional<BaiViet> getDetailPost(int id){
         return postRepository.findById(id);
     }
+
+    public List<BaiViet> getPostByCategory(int idCategory){
+        return postRepository.findBaiVietByIdChuDe(idCategory);
+    }
 }
