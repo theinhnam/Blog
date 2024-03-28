@@ -25,6 +25,7 @@ public class WebSecurityConfig {
                         .requestMatchers("/comment").permitAll()
                                 .requestMatchers("/category/**").permitAll()
                         .requestMatchers("/login").permitAll()
+                        .requestMatchers("/admin/**").authenticated()
                 )
                 .formLogin(loginConfigurer -> loginConfigurer.loginPage("/login").defaultSuccessUrl("/dashboard", true).failureUrl("/login?error=true").permitAll())
                 .logout(logoutConfigurer -> logoutConfigurer.logoutSuccessUrl("/login?logout=true").invalidateHttpSession(true).permitAll())
