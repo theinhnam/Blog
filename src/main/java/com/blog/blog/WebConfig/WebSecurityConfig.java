@@ -15,7 +15,7 @@ public class WebSecurityConfig {
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception{
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(
-                        request -> request.requestMatchers("/home").permitAll()
+                        request -> request.requestMatchers("/home/**").permitAll()
                         .requestMatchers("/dashboard").authenticated()
                         .requestMatchers("/home").permitAll()
                         .requestMatchers("/contact").permitAll()
@@ -26,6 +26,7 @@ public class WebSecurityConfig {
                         .requestMatchers("/comment").permitAll()
                                 .requestMatchers("/admin/**").permitAll()
                                 .requestMatchers("/api/**").permitAll()
+                                .requestMatchers("/category/**").permitAll()
                 )
                 .formLogin(loginConfigurer -> loginConfigurer.loginPage("/login").defaultSuccessUrl("/dashboard").failureUrl("/login?error=true").permitAll())
                 .logout(logoutConfigurer -> logoutConfigurer.logoutSuccessUrl("/login?logout=true").invalidateHttpSession(true).permitAll())

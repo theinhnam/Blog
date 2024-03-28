@@ -15,6 +15,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -32,11 +37,23 @@ public class BaiVietService {
     @Autowired
     TaiKhoanRepository taiKhoanRepository;
 
+//    public String saveImage (MultipartFile file) {
+//        String filePath = folder + file.getOriginalFilename();
+//        try {
+//            file.transferTo(new File(filePath));
+//            return filePath;
+//        }catch (Exception e){
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
+
     public String saveImage (MultipartFile file) {
-        String filePath = folder + file.getOriginalFilename();
+        Path path = Paths.get("uploads/");
         try {
-            file.transferTo(new File(filePath));
-            return filePath;
+            InputStream inputStream = file.getInputStream();
+            Files.copy(inputStream,path.resolve(file.getOriginalFilename()), StandardCopyOption.REPLACE_EXISTING);
+            return file.getOriginalFilename().toLowerCase();
         }catch (Exception e){
             e.printStackTrace();
             return null;

@@ -53,7 +53,7 @@ public class PostController {
     @GetMapping("/category/{idCategory}")
     public String displayPostWithCategory(@PathVariable("idCategory") int idCategory, Model model){
         ChuDe chuDe = chuDeService.findById(idCategory);
-        model.addAttribute("listPost", postService.getPostByCategory(idCategory));
+        model.addAttribute("listPost", postService.getPostByCategory(chuDe));
         model.addAttribute("chuDe", chuDe);
         return "postCategory";
     }
