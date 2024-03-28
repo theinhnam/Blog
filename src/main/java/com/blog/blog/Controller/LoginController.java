@@ -32,7 +32,7 @@ public class LoginController {
         }
 
         model.addAttribute("errorMsg", errorMsg);
-        return "dashboard";
+        return "/login/index";
     }
 
     @GetMapping("/logout")

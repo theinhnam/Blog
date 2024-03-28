@@ -26,7 +26,7 @@ public class WebSecurityConfig {
                                 .requestMatchers("/category/**").permitAll()
                         .requestMatchers("/login").permitAll()
                 )
-                .formLogin(loginConfigurer -> loginConfigurer.loginPage("/login").defaultSuccessUrl("/dashboard").failureUrl("/login?error=true").permitAll())
+                .formLogin(loginConfigurer -> loginConfigurer.loginPage("/login").defaultSuccessUrl("/dashboard", true).failureUrl("/login?error=true").permitAll())
                 .logout(logoutConfigurer -> logoutConfigurer.logoutSuccessUrl("/login?logout=true").invalidateHttpSession(true).permitAll())
                 .httpBasic(Customizer.withDefaults());
         return http.build();
