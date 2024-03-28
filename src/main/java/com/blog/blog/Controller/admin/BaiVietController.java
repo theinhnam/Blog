@@ -7,7 +7,9 @@ import jakarta.servlet.ServletContext;
 import org.apache.catalina.Store;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -16,6 +18,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
 
 @Controller
@@ -27,17 +31,39 @@ public class BaiVietController {
     @Autowired
     ServletContext servletContext;
 
-    @GetMapping("/read-file/{id}")
-    public byte[] readFile (@PathVariable("id") int id){
-        try {
-            String filePath = baiVietService.findById(id).getThumbnail();
-            System.out.println(id + " iddddd " + filePath);
-            return Files.readAllBytes(new File(filePath).toPath());
-        }catch (Exception e){
-            e.printStackTrace();
-            return null;
-        }
+//    @GetMapping("/read-file/{id}")
+//    @ResponseBody
+//    public ResponseEntity<byte[]> readFile (@PathVariable("id") int id){
+//        try {
+//            String filePath = baiVietService.findById(id).getThumbnail();
+//            System.out.println(id + " iddddd " + filePath);
+//            byte[] buffer = Files.readAllBytes(new File(filePath).toPath());
+//            return ResponseEntity.ok()
+//                    .contentLength(buffer.length)
+//                    .contentType(MediaType.parseMediaType("image/png"))
+//                    .body(buffer);
+//        }catch (Exception e){
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
+@GetMapping("/read-file/{id}")
+@ResponseBody
+public ResponseEntity<ByteArrayResource> readFile (@PathVariable("id") int id){
+    try {
+        String photo = baiVietService.findById(id).getThumbnail();
+        Path fileName = Paths.get("uploads", photo);
+        byte[] buffer = Files.readAllBytes(fileName);
+        ByteArrayResource byteArrayResource = new ByteArrayResource(buffer);
+        return ResponseEntity.ok()
+                .contentLength(buffer.length)
+                .contentType(MediaType.parseMediaType("image/png"))
+                .body(byteArrayResource);
+    }catch (Exception e){
+        e.printStackTrace();
+        return null;
     }
+}
 
     @GetMapping("/index")
     public String index (Model model, @RequestParam Optional<Integer> pageNumber) {
