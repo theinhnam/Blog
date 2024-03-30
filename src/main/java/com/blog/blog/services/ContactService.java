@@ -12,6 +12,7 @@ public class ContactService {
     ContactRepository contactRepository;
 
     public boolean saveMsg(LienHe contact){
+        contact.setTrangThai(1);
         boolean isSave = false;
         if (contactRepository.save(contact).getId() > 0) {
             isSave = true;
